@@ -1,0 +1,48 @@
+---
+sidebar: sidebar 
+permalink: security-model.html 
+keywords: security model, shared responsibility, IAM assume-role, STS credentials, ONTAP-native operations, VPC execution components, observability, data handling 
+summary: NetApp Workload Factory è un piano di controllo SaaS che ti aiuta a gestire e ottimizzare i carichi di lavoro che girano su Amazon FSx for NetApp ONTAP nel tuo ambiente AWS. 
+---
+= Scopri il modello di sicurezza per NetApp Workload Factory
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory è un piano di controllo SaaS che ti aiuta a gestire e ottimizzare i carichi di lavoro che vengono eseguiti su Amazon FSx for NetApp ONTAP nel tuo ambiente AWS. I risultati in termini di sicurezza dipendono dalla condivisione delle responsabilità tra NetApp, AWS e la tua organizzazione.
+
+
+
+[[high-level-security-model]]
+== Modello di sicurezza di alto livello
+
+* Workload Factory utilizza un modello IAM assume-role per ottenere credenziali AWS STS temporanee per chiamare le API AWS nel tuo account.
+* Alcuni flussi di lavoro richiedono operazioni native di ONTAP non esposte tramite le API di AWS; puoi eseguire tali operazioni all'interno della tua VPC utilizzando componenti di esecuzione distribuiti dal cliente (ad esempio, Lambda link).
+* I segnali di osservabilità (metriche, telemetria e registrazioni operative) supportano il monitoraggio operativo e le indagini.
+
+
+
+
+[[key-review-questions]]
+== Domande chiave della revisione
+
+* Di quali accessi ha bisogno Workload Factory al tuo account AWS (attendibilità del ruolo + autorizzazioni)?
+* Quali percorsi di esecuzione si applicano ai flussi di lavoro previsti (solo API AWS o operazioni native ONTAP tramite un componente VPC)?
+* Quali categorie di dati vengono gestite (configurazione/metadati, log/eventi operativi, telemetria) e dove vengono memorizzate?
+* Quali segnali di monitoraggio esistono e quali sono le loro caratteristiche di conservazione?
+
+
+
+
+[[whats-next]]
+== Cosa c'è dopo
+
+* link:shared-responsibility-boundaries.html["Confini di responsabilità condivisa per NetApp Workload Factory"]
+* link:connectivity-trust-paths.html["Connettività e percorsi di fiducia per NetApp Workload Factory"]
+* link:least-privilege-permissions.html["Livelli di autorizzazione a privilegio minimo per NetApp Workload Factory"]
+

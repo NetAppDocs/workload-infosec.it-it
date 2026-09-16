@@ -1,0 +1,43 @@
+---
+sidebar: sidebar 
+permalink: cloudwatch-monitoring-permissions.html 
+keywords: CloudWatch monitoring permissions, monitoring stack, file system metrics, CloudWatch alarms, CloudWatch dashboards, Amazon SNS, event logs, ONTAP credentials, secretsmanager 
+summary: CloudWatch monitoring permissions sono facoltative in NetApp Workload Factory e si applicano solo quando distribuisci lo stack di monitoraggio separato. 
+---
+= Autorizzazioni di monitoraggio Amazon CloudWatch per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Le autorizzazioni di monitoraggio di Amazon CloudWatch sono facoltative in NetApp Workload Factory e si applicano solo quando distribuisci lo stack di monitoraggio separato. Lo stack di monitoraggio offre visibilità operativa raccogliendo le metriche del file system, pubblicando i registri degli eventi, gestendo le dashboard e gli allarmi di CloudWatch e inviando notifiche di avviso tramite Amazon SNS. Lo stack richiede anche l'accesso per recuperare le credenziali ONTAP quando necessario per il monitoraggio.
+
+
+
+[[required-cloudwatch-monitoring-permissions]]
+== Autorizzazioni di monitoraggio richieste per CloudWatch
+
+Per lo stack di monitoraggio opzionale sono necessarie le seguenti autorizzazioni:
+
+[cols="2,3"]
+|===
+| Permesso | Scopo 
+
+
+| fsx:Describe* / fsx:ListTagsForResource | Raccogli metriche del file system 
+
+
+| cloudwatch:PutMetricData / cloudwatch:PutDashboard / cloudwatch:PutMetricAlarm / cloudwatch:DescribeAlarms / cloudwatch:Delete* | Gestisci dashboard e allarmi 
+
+
+| logs:CreateLogGroup / logs:CreateLogStream / logs:PutLogEvents | Pubblica i registri degli eventi 
+
+
+| sns:Publish | Invia notifiche di avviso 
+
+
+| secretsmanager:GetSecretValue | Recupera le credenziali ONTAP per il monitoraggio 
+|===

@@ -1,0 +1,40 @@
+---
+sidebar: sidebar 
+permalink: ai-tool-boundaries.html 
+keywords: AI tool boundaries, read-only diagnostics, AWS CLI, ONTAP CLI, Amazon Bedrock, data retention, model training boundaries, mutating commands, tool safety controls 
+summary: 'NetApp Workload Factory impone limiti rigorosi su come le sue funzionalità di intelligenza artificiale interagiscono con i tuoi ambienti AWS e ONTAP, così puoi fidarti della diagnostica assistita dall"IA senza rischiare modifiche indesiderate.' 
+---
+= Limiti degli strumenti di intelligenza artificiale per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory impone rigidi limiti su come le sue funzionalità di intelligenza artificiale interagiscono con i tuoi ambienti AWS e ONTAP, così puoi affidarti alla diagnostica assistita dall'IA senza rischiare modifiche indesiderate. Amazon Bedrock utilizza strumenti di diagnostica AWS CLI e ONTAP CLI in sola lettura che bloccano i comandi di modifica e limitano l'output per dimensione ed esecuzione, e tutti i dati utilizzati sono solo temporanei e non vengono conservati da NetApp Workload Factory o AWS.
+
+
+
+[[tool-safety-controls]]
+== Controlli di sicurezza degli strumenti
+
+[cols="2,3,4"]
+|===
+| Strumento | Capacità | Controlli di sicurezza 
+
+
+| AWS CLI (sola lettura) | Esegui comandi AWS CLI di sola lettura (describe, list, get) | Blocca tutti i verbi di modifica (create, delete, modify, update, put, remove). Massimo 10 comandi per step. Output troncato a 20 KB. 
+
+
+| ONTAP CLI (sola lettura) | Esegui comandi CLI ONTAP in sola lettura tramite SSH | Blocca tutti i verbi di modifica (elimina, distruggi, crea, modifica, sposta). Output troncato. 
+|===
+L'agente non può modificare, creare o eliminare risorse. Può solo osservare e diagnosticare.
+
+
+
+[[data-retention-and-model-training-boundaries]]
+== Limiti di conservazione dei dati e di addestramento del modello
+
+In conformità con le policy AWS, Amazon Bedrock non memorizza né utilizza i tuoi input e output per addestrare o migliorare i foundation model. Per l'inferenza on-demand (usata da Workload Factory), AWS elabora i tuoi dati in modo transitorio e non li conserva dopo aver restituito la risposta.

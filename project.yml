@@ -1,0 +1,100 @@
+---
+settings:
+  name: Information Security for Workload Factory
+  internal:
+    pdf_enabled: true
+  prod:
+    pdf_enabled: true
+    harmony_enabled: false
+  langs: it-it,us-en,de-de,es-es,fr-fr,pt-br,ja-jp,ko-kr,zh-cn,zh-tw
+sidebar:
+  entries:
+  - title: Scopri la sicurezza delle informazioni per Workload Factory
+    url: "/learn-about-workload-factory-infosec.html"
+  - title: Modello di sicurezza e responsabilità
+    entries:
+    - title: Modello di sicurezza in sintesi
+      url: "/security-model.html"
+    - title: Confini di responsabilità condivisa
+      url: "/shared-responsibility-boundaries.html"
+    - title: flusso di lavoro di sicurezza per l'onboarding
+      url: "/onboarding-security-workflow.html"
+    - title: Conformità e postura di sicurezza
+      url: "/compliance-security-posture.html"
+  - title: Architettura e connettività
+    entries:
+    - title: Connettività e percorsi di fiducia
+      url: "/connectivity-trust-paths.html"
+    - title: Opzioni di esecuzione ONTAP
+      url: "/ontap-execution-options.html"
+  - title: Identità, credenziali e minimo privilegio
+    entries:
+    - title: Integrazione account AWS
+      url: "/aws-account-integration.html"
+    - title: Flusso delle credenziali AWS
+      url: "/aws-credential-flow.html"
+    - title: Conservazione delle credenziali
+      url: "/credential-retention.html"
+    - title: Tipi di credenziali
+      url: "/credential-types.html"
+    - title: Opzioni di archiviazione delle credenziali
+      url: "/credential-storage-options.html"
+    - title: Requisiti del minimo privilegio
+      url: "/least-privilege-permissions.html"
+    - title: CloudWatch autorizzazioni di monitoraggio
+      url: "/cloudwatch-monitoring-permissions.html"
+  - title: Governance dei dati, privacy e ciclo di vita
+    entries:
+    - title: Gestione dei dati e residenza
+      url: "/data-handling-residency.html"
+    - title: Crittografia e gestione delle chiavi
+      url: "/encryption-key-management.html"
+    - title: Eliminazione account
+      url: "/account-deletion.html"
+  - title: Osservabilità (log, metriche, telemetria)
+    entries:
+    - title: Panoramica sull'osservabilità
+      url: "/observability-overview.html"
+    - title: Riferimento a metriche e telemetria
+      url: "/metrics-telemetry.html"
+  - title: Controlli di sicurezza per l'intelligenza artificiale generativa
+    entries:
+    - title: Panoramica dei controlli dell'IA
+      url: "/ai-controls-overview.html"
+    - title: Attivazione di Amazon Bedrock per la diagnostica AI
+      url: "/amazon-bedrock-opt-in.html"
+    - title: Limiti degli strumenti di intelligenza artificiale
+      url: "/ai-tool-boundaries.html"
+    - title: Parametri del modello di intelligenza artificiale e fatturazione
+      url: "/ai-model-parameters-billing.html"
+    - title: Chiedimi assistente AI
+      entries:
+      - title: Chiedimi l'architettura di sicurezza
+        url: "/ask-me-security-architecture.html"
+      - title: Chiedimi accesso ai controlli
+        url: "/ask-me-access-control.html"
+      - title: Modalità di esecuzione di Ask Me
+        url: "/ask-me-execution-modes.html"
+      - title: Chiedimi di privacy e disponibilità
+        url: "/ask-me-privacy-availability.html"
+  - title: Operazioni ONTAP e collegamento Lambda (componente VPC del cliente)
+    entries:
+    - title: Panoramica del collegamento Lambda
+      url: "/lambda-link-overview.html"
+    - title: Porte e chiamate del link Lambda
+      url: "/lambda-link-ports-calls.html"
+    - title: Autorizzazioni IAM del collegamento Lambda
+      url: "/lambda-link-iam-permissions.html"
+    - title: ciclo di vita del collegamento Lambda
+      url: "/lambda-link-lifecycle.html"
+  - title: Conoscenza e supporto
+    entries:
+    - title: Registrati per ricevere supporto
+      url: "/register-support.html"
+    - title: Ottieni aiuto
+      url: "/get-help.html"
+  - title: Note legali
+    url: "/legal-notices.html"
+product-family:
+  name: NetApp Workload Factory
+  repo: workload-family

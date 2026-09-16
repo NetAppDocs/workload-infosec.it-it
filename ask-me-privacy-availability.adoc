@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: ask-me-privacy-availability.html 
+keywords: Ask Me privacy, data handling, ephemeral storage, availability, multi-model fallback, audit logging, knowledge base content, feedback data, isolation controls 
+summary: 'In NetApp Workload Factory, i controlli sulla privacy di Ask Me limitano l"esposizione dei dati, mantengono isolata l"elaborazione delle sessioni e preservano i confini della privacy durante le interazioni con gli utenti.' 
+---
+= Chiedimi informazioni su privacy e disponibilità per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+In NetApp Workload Factory, i controlli sulla privacy di Ask Me limitano l'esposizione dei dati, mantengono isolata l'elaborazione delle sessioni e preservano i confini della privacy per le interazioni con gli utenti. I tuoi input vengono elaborati da un servizio di intelligenza artificiale gestito che non li utilizza per addestrare o migliorare i modelli di base. I dati operativi recuperati rimangono in una memoria temporanea, in-memory, per la durata della sessione e non vengono memorizzati o condivisi. Una catena di fallback multi-modello distribuita su più regioni cloud garantisce la disponibilità quando il modello principale è limitato o non disponibile, mentre gli stessi controlli di sicurezza si applicano ai modelli di fallback.
+
+
+
+[[data-handling-and-privacy]]
+== Gestione dei dati e privacy
+
+* Dati utente nei prompt: elaborati da un servizio AI gestito che non utilizza i tuoi input per addestrare o migliorare i foundation models.
+* Contenuto della knowledge base: solo documentazione curata e pubblicata NetApp; i tuoi dati non sono inclusi.
+* Dati operativi: recuperati solo quando un utente interroga le proprie risorse; conservati in memoria temporanea per la durata della sessione e non persistenti né condivisi.
+* Registrazione degli eventi di controllo: metadati delle query (ID utente anonimizzato, timestamp, durate) registrati, con i campi sensibili oscurati.
+* Dati di feedback: memorizzati separatamente e collegati a un ID di query, non a informazioni di identificazione personale oltre all'ID utente anonimizzato.
+
+
+
+
+[[availability-and-isolation-controls]]
+== Controlli di disponibilità e isolamento
+
+Ask Me utilizza una catena di fallback multi-modello su più regioni cloud.
+
+Se il modello principale è sovraccarico o non disponibile, il sistema può passare a modelli alternativi.
+
+Tutti i modelli sono soggetti agli stessi controlli di sicurezza, allo stesso hardening del sistema e alle stesse garanzie di isolamento.

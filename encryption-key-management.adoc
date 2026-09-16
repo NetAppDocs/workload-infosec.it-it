@@ -1,0 +1,63 @@
+---
+sidebar: sidebar 
+permalink: encryption-key-management.html 
+keywords: encryption, key management, AWS KMS, encryption at rest, envelope encryption, FSx for ONTAP, credential protection, kms CreateGrant 
+summary: NetApp Workload Factory utilizza la crittografia a riposo e definisce chiare responsabilità per la gestione delle chiavi tra Workload Factory e i servizi AWS. 
+---
+= Crittografia e gestione delle chiavi per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory utilizza la crittografia dei dati a riposo e definisce chiare responsabilità di gestione delle chiavi tra Workload Factory e i servizi AWS. Per i file system Amazon FSx for NetApp ONTAP, puoi scegliere la tua chiave AWS KMS oppure usare la chiave predefinita gestita da AWS, e FSx for ONTAP esegue le operazioni crittografiche con quella chiave. Workload Factory utilizza anche la crittografia a busta per proteggere le credenziali ONTAP memorizzate.
+
+
+
+[[kms-encryption-at-rest-scope-for-fsx]]
+== Ambito di crittografia a riposo KMS per FSx
+
+Quando crei un file system FSx for ONTAP tramite Workload Factory, puoi opzionalmente specificare la tua chiave AWS KMS per la crittografia dei dati a riposo. Se non specifichi una chiave, Workload Factory usa la chiave FSx predefinita gestita da AWS.
+
+Cosa è crittografato:: Tutti i dati memorizzati sui volumi EBS sottostanti che supportano il file system FSx for ONTAP (crittografia AWS FSx a riposo).
+Proprietà della chiave:: La chiave KMS risiede nel tuo account AWS.
+Autorizzazioni necessarie per la selezione e l'utilizzo della chiave:: Workload Factory richiede:
++
+--
+* `kms:DescribeKey`
+* `kms:ListKeys`
+* `kms:ListAliases`
+* `kms:CreateGrant` (per consentire al servizio FSx for ONTAP di utilizzare la chiave)
+
+
+--
+Schema di accesso chiave:: Workload Factory non crittografa né decrittografa mai direttamente i dati con la tua chiave KMS. Passa l'ID della chiave all'API di Amazon FSx for NetApp ONTAP durante la creazione del file system; Amazon FSx for NetApp ONTAP esegue le operazioni crittografiche.
+
+
+
+
+[[credential-protection-service-side-envelope-encryption]]
+== Protezione delle credenziali (crittografia dell'envelope lato servizio)
+
+Quando memorizzi le credenziali ONTAP (password di amministratore) tramite Workload Factory, vengono protette utilizzando la crittografia a busta prima di essere salvate.
+
+Metodo di crittografia:: AES-256-CBC con una chiave di crittografia dei dati (DEK) univoca per ogni record di credenziali.
+Flusso di crittografia della busta::
++
+--
+. Per ogni credenziale viene generato un DEK univoco a 256 bit.
+. Il DEK crittografa la credenziale (password).
+. Il DEK stesso è crittografato con una chiave root e memorizzato insieme alla credenziale crittografata.
+. Il testo in chiaro DEK non viene mai memorizzato.
+
+
+--
+Contesto di crittografia:: Ogni chiave dati è crittograficamente associata al suo specifico record di credenziali, impedendo il riutilizzo della chiave tra record.
+Alternativa: AWS Secrets Manager:: Anziché memorizzare le password crittografate nel servizio, puoi archiviare le credenziali ONTAP in AWS Secrets Manager nel tuo account. Workload Factory non vede né memorizza mai la password; passa l'ARN di Secrets Manager al collegamento Lambda, che recupera la password durante l'esecuzione all'interno della tua VPC.
+
+
+
+NOTE: AWS Secrets Manager è necessario per gli account GovCloud.

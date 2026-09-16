@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-iam-permissions.html 
+keywords: Lambda link, IAM permissions, execution role, Secrets Manager, ONTAP credentials, VPC networking, lambda InvokeFunction, resource-based policy 
+summary: 'NetApp Workload Factory utilizza i limiti di autorizzazione dei collegamenti Lambda per definire l"accesso IAM necessario per l"esecuzione di Lambda e l"invocazione di Workload Factory. Queste autorizzazioni sono facoltative ma necessarie per le operazioni native di ONTAP.' 
+---
+= Autorizzazioni IAM del collegamento Lambda per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory utilizza i limiti di autorizzazione del collegamento Lambda per definire l'accesso IAM necessario per l'esecuzione di Lambda e l'invocazione di Workload Factory. Queste autorizzazioni sono facoltative, ma sono necessarie per le operazioni native di ONTAP. Quando configuri il supporto per Secrets Manager, il collegamento recupera le credenziali ONTAP direttamente dal tuo AWS Secrets Manager in fase di esecuzione e la password transita solo all'interno della tua VPC, da Secrets Manager alla funzione Lambda e poi all'endpoint ONTAP.
+
+Per i requisiti relativi al percorso della richiesta e alla porta, consulta link:lambda-link-ports-calls.html["Porte e chiamate del link Lambda"].
+
+
+
+[[lambda-execution-role-permissions]]
+== Permessi del ruolo di esecuzione Lambda
+
+Il ruolo di esecuzione Lambda richiede le seguenti autorizzazioni quando distribuisci un collegamento nella tua VPC:
+
+[cols="2,3"]
+|===
+| Permesso | Scopo 
+
+
+| ec2:CreateNetworkInterface / ec2:DescribeNetworkInterfaces / ec2:DeleteNetworkInterface | Networking Lambda standard collegato a VPC 
+
+
+| ec2:AssignPrivateIpAddresses / ec2:UnassignPrivateIpAddresses | Gestione IP VPC ENI 
+
+
+| secretsmanager:GetSecretValue (con ambito FSxSecret*) | Recupera le credenziali ONTAP (solo quando Secrets Manager è abilitato) 
+
+
+| CloudWatch Logs (criteri gestiti) | Registrazione dell'esecuzione di Lambda 
+|===
+
+
+[[workload-factory-invocation-permissions]]
+== Autorizzazioni di invocazione di Workload Factory
+
+La policy basata sulle risorse del collegamento Lambda concede all'entità servizio Workload Factory le seguenti autorizzazioni:
+
+[cols="2,3"]
+|===
+| Permesso | Scopo 
+
+
+| lambda:InvokeFunction | Esegui la Lambda 
+
+
+| lambda:GetFunction | Controlli dello stato di salute 
+
+
+| lambda:UpdateFunctionCode | Aggiornamenti di versione (aggiornamenti dell'immagine) 
+
+
+| lambda:GetFunctionConfiguration | Verifica della configurazione 
+|===

@@ -1,0 +1,58 @@
+---
+sidebar: sidebar 
+permalink: least-privilege-permissions.html 
+keywords: infosec, security, data handling, data retention, data collection, permissions, credentials, iam, assume role, least privilege, compliance, soc 2, govcloud, amazon bedrock, lambda, link, fsx for ontap, logging, audit, access control, onboarding, hardening 
+summary: NetApp Workload Factory prende sul serio la sicurezza delle informazioni e le pratiche di protezione dei dati, concentrandosi sulle procedure di gestione dei dati e sui requisiti di accesso, con indicazioni per configurazioni a privilegio minimo e potenziali misure di hardening. 
+---
+= Livelli di autorizzazione a privilegio minimo per NetApp Workload Factory
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Puoi limitare le autorizzazioni IAM di Workload Factory in qualsiasi momento per soddisfare i requisiti del principio del minimo privilegio, ad esempio limitando l'accesso a risorse specifiche (ARN) e applicando condizioni IAM, come tag e intervalli CIDR.
+
+
+
+[[tiered-permission-model]]
+== Modello di autorizzazioni a livelli
+
+Workload Factory utilizza un modello di autorizzazioni a livelli, basato sul principio del minimo privilegio. Scegli tu quali livelli di funzionalità abilitare quando aggiungi le credenziali AWS. Puoi iniziare con la scoperta in sola lettura ed espandere secondo le necessità.
+
+Workload Factory concede tutte le autorizzazioni tramite un ruolo IAM nel tuo account AWS, che assume tramite STS con un ID esterno.
+
+Workload Factory definisce ulteriormente l'ambito di ogni chiamata API con una session policy inline.
+
+Nella console di Workload Factory, la funzionalità di chat basata sull'AI _Ask Me_ ti aiuta a perfezionare le autorizzazioni in modo sicuro suggerendo opzioni di restrizione e generando una policy aggiornata da applicare in AWS.
+
+
+
+[[granting-permissions]]
+== Concessione delle autorizzazioni
+
+Quando aggiungi le credenziali AWS a Workload Factory, puoi scegliere quali livelli di autorizzazione abilitare. Puoi abilitare o disabilitare i livelli in qualsiasi momento.
+
+I livelli sono cumulativi: l'attivazione di un livello superiore abilita automaticamente tutti i livelli inferiori.
+
+
+
+[[security-controls]]
+== Controlli di sicurezza
+
+* ID esterno (protezione dal deputy confuso)
+* Politiche di sessione per singola operazione (minimo privilegio per richiesta)
+* Condizioni basate su tag (modifiche ai gruppi di sicurezza limitate alle risorse create da Workload Factory)
+* Ambito ARN segreto (accesso a Secrets Manager limitato a  `FSxSecret*`)
+* Validazione delle autorizzazioni in fase di esecuzione (azione/risorsa mancante segnalata per una correzione mirata)
+
+
+
+
+[[permissions-documentation]]
+== Documentazione sulle autorizzazioni
+
+Il riferimento principale per le autorizzazioni di Workload Factory è la link:https://docs.netapp.com/us-en/workload-setup-admin/permissions-reference.html["riferimento ai permessi"^] nella documentazione di configurazione e amministrazione di Workload Factory. Puoi trovare informazioni sull'impatto della rimozione delle autorizzazioni dalle policy IAM di Storage in questa documentazione.

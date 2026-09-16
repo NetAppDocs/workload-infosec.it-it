@@ -1,0 +1,44 @@
+---
+sidebar: sidebar 
+permalink: ask-me-access-control.html 
+keywords: Ask Me access control, authentication, JWT, secrets vault, credential protection, log scrubbing, CORS, non-root container, user identity scoping 
+summary: In NetApp Workload Factory, la sicurezza di accesso di Ask Me si basa su sessioni autenticate, responsabilità a livello utente e gestione protetta dei segreti durante le operazioni in fase di esecuzione. 
+---
+= Chiedimi il controllo degli accessi per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+In NetApp Workload Factory, la sicurezza di accesso di Ask Me si basa su sessioni autenticate, responsabilità a livello utente e gestione protetta dei segreti durante le operazioni in fase di esecuzione. I controlli di autenticazione convalidano ogni sessione e associano le interazioni a un utente specifico. Le credenziali sensibili vengono recuperate da un archivio di segreti gestito in fase di esecuzione e oscurate nei log. Il servizio applica anche controlli infrastrutturali, tra cui l'esecuzione di container senza privilegi di root e una lista di autorizzazioni CORS limitata.
+
+
+
+[[authentication]]
+== Autenticazione
+
+* Autenticazione JWT firmata con convalida crittografica (inclusi controlli su audience, issuer e algoritmo come RS256)
+* Autenticazione imposta dal middleware al confine del servizio
+* Definizione dell'ambito dell'identità utente così che le interazioni siano attribuibili a un utente specifico
+
+
+
+
+[[credential-protection-and-secret-handling]]
+== Protezione delle credenziali e gestione dei segreti
+
+* Archiviazione sicura nel vault: le credenziali sensibili utilizzate dal servizio vengono archiviate in un vault di segreti gestito e recuperate in fase di esecuzione. Nessun segreto viene memorizzato nel codice dell'applicazione, nei file di configurazione o nelle immagini dei container.
+* Pulizia dei log: i valori sensibili (credenziali, token, password, chiavi di accesso, certificati) vengono oscurati dai log prima che siano scritti.
+
+
+
+
+[[infrastructure-security]]
+== Sicurezza delle infrastrutture
+
+* Esecuzione di container non root
+* CORS limitato a una lista esplicita di domini attendibili NetApp
+

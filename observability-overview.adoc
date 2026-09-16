@@ -1,0 +1,49 @@
+---
+sidebar: sidebar 
+permalink: observability-overview.html 
+keywords: observability, telemetry, Tracker, audit logging, OpenTelemetry, AI usage metering, AWS Timestream, operational records, monitoring 
+summary: 'I segnali di osservabilità aiutano a supportare il monitoraggio operativo, la risoluzione dei problemi e le indagini. In NetApp Workload Factory, l"osservabilità include metriche, telemetria e registri operativi che offrono visibilità sul comportamento del servizio, sull"uso dell"AI e sulle azioni eseguite tramite Workload Factory.' 
+---
+= Scopri l'osservabilità in NetApp Workload Factory
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+I segnali di osservabilità contribuiscono al monitoraggio operativo, alla risoluzione dei problemi e alle indagini. In NetApp Workload Factory, l'osservabilità include metriche, dati di telemetria e registri operativi che offrono visibilità sul comportamento del servizio, sull'utilizzo dell'AI e sulle azioni eseguite tramite Workload Factory. I dati di telemetria e i registri operativi supportano il monitoraggio interno e la visibilità per gli audit rivolti ai clienti, e Tracker ti aiuta a esaminare i progressi, lo stato e i dettagli delle operazioni supportate.
+
+
+
+[[telemetry-and-operational-records]]
+== Telemetria e registrazioni operative
+
+Workload Factory utilizza i seguenti tipi di telemetria e record operativi:
+
+* OpenTelemetry traces esportate tramite OTLP HTTP a SigNoz (osservabilità interna)
+* Misurazione dell'utilizzo dell'AI (conteggio dei token, costi del modello) memorizzata in AWS Timestream
+* NetApp Console registri di audit (nome azione, stato, metadati di richiesta/risposta, timestamp)
+
+
+
+
+[[audit-logging-in-workload-factory]]
+== Registrazione dell'audit in Workload Factory
+
+Workload Factory offre Tracker, una funzionalità di monitoraggio che ti permette di controllare quali operazioni sono in esecuzione e quando. Con Tracker puoi monitorare l'avanzamento e lo stato di FSx for ONTAP, delle credenziali e delle operazioni di collegamento, esaminare i dettagli delle attività e sottoattività operative e diagnosticare eventuali problemi o errori.
+
+In Tracker sono disponibili diverse azioni. Puoi filtrare i job in base all'intervallo di tempo (ultime 24 ore, 7 giorni, 14 giorni o 30 giorni), al workload, allo stato e all'utente; trovare i job usando la funzione di ricerca; e scaricare la tabella dei job come file CSV.
+
+* link:https://docs.netapp.com/us-en/workload-fsx-ontap/monitor-operations.html["Monitora le operazioni utilizzando Tracker in Workload Factory"^]
+
+
+
+
+[[related-information]]
+== Informazioni correlate
+
+* link:metrics-telemetry.html["Metriche e telemetria per NetApp Workload Factory"]
+

@@ -1,0 +1,53 @@
+---
+sidebar: sidebar 
+permalink: ai-model-parameters-billing.html 
+keywords: AI model parameters, Amazon Bedrock billing, AI usage limits, model configuration, inference profile, Claude model, deterministic parameters, cost visibility, AI governance 
+summary: 'NetApp Workload Factory definisce la configurazione del modello e i limiti di utilizzo e fatturazione rilevanti per la governance dell"AI.' 
+---
+= Parametri del modello AI e fatturazione per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory definisce la configurazione del modello e i limiti di utilizzo e fatturazione rilevanti per la governance dell'AI. Il modello configurato utilizza parametri deterministici e restituisce JSON strutturato per garantire risultati di analisi coerenti. AWS fattura l'inferenza di Amazon Bedrock al tuo account, mentre Workload Factory tiene traccia dell'utilizzo dell'AI e fornisce visibilità sui costi mensili per account. Queste sezioni descrivono i parametri del modello e i limiti che si applicano al consumo di AI.
+
+
+
+[[model-and-parameters]]
+== Modello e parametri
+
+[cols="2,3"]
+|===
+| Parametro | Valore 
+
+
+| Modello | Anthropic Claude (utilizzando un profilo di inferenza interregionale) 
+
+
+| Temperatura | 0 (deterministico, senza casualità) 
+
+
+| Token di output massimi | 2.048 
+
+
+| Numero massimo di passaggi di ragionamento | 15 per analisi 
+
+
+| Formato di output | JSON strutturato (riepilogo, gravità, causa principale, azioni correttive) 
+|===
+
+
+[[billing-and-usage-limits]]
+== Limiti di fatturazione e utilizzo
+
+* AWS addebita l'inferenza Bedrock al tuo account (il tuo profilo di inferenza, le tue credenziali).
+* Workload Factory tiene traccia internamente dell'utilizzo dell'AI.
+* Workload Factory offre visibilità sui costi mensili per account.
++
+link:https://docs.netapp.com/us-en/workload-fsx-ontap/track-costs.html["Monitora i costi di archiviazione in NetApp Workload Factory"^]
+
+

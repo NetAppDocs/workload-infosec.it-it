@@ -1,0 +1,84 @@
+---
+sidebar: sidebar 
+permalink: lambda-link-overview.html 
+keywords: Lambda link overview, ONTAP-native operations, VPC deployment, security architecture, NetApp Console agent, CloudFormation, container image 
+summary: 'NetApp Workload Factory utilizza un _link_, una funzione AWS Lambda distribuita nella tua VPC, per mantenere le operazioni native di ONTAP all"interno dei confini del tuo account AWS quando l"API Amazon FSx for NetApp ONTAP non espone tali operazioni.' 
+---
+= Scopri il collegamento Lambda per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory utilizza un _link_, una funzione AWS Lambda distribuita nella tua VPC, per mantenere le operazioni native di ONTAP all'interno dei confini del tuo account AWS quando l'API Amazon FSx for NetApp ONTAP non espone tali operazioni. Il link viene eseguito nelle tue sottoreti e nei tuoi gruppi di sicurezza, quindi il componente di esecuzione rimane all'interno del tuo ambiente AWS. Workload Factory richiama il link solo per le operazioni che richiedono l'accesso diretto a ONTAP invece di un'API di servizio AWS disponibile. Confronta l'architettura del link con il profilo di sicurezza e operativo dell'agente della NetApp Console.
+
+
+
+[[link-security-architecture]]
+== Architettura di sicurezza dei link
+
+Un collegamento Workload Factory crea una relazione di fiducia e una connettività indiretta tra un account Workload Factory e uno o più file system FSx for ONTAP.
+
+La tabella seguente fornisce una panoramica dell'architettura di sicurezza del collegamento Lambda. Usa queste informazioni per capire come la funzione Lambda viene distribuita ed eseguita nel tuo account AWS, inclusa la configurazione di rete, l'ambiente di runtime e i limiti operativi.
+
+[cols="2,3"]
+|===
+| Proprietà | Dettaglio 
+
+
+| Calcolo | AWS Lambda (immagine container) 
+
+
+| Tempo di esecuzione | Node.js 22 
+
+
+| Distribuzione | CloudFormation stack nel tuo account AWS 
+
+
+| Posizionamento VPC | Le tue subnet, i tuoi security group 
+
+
+| Timeout | 10 secondi per invocazione 
+
+
+| Invocazione | Sincrono (RequestResponse) 
+
+
+| Tipo di pacchetto | Immagine del container (da NetApp ECR) 
+|===
+Il diagramma seguente mostra l'architettura di sicurezza del collegamento Lambda.
+
+image:infosec-link-diagram.png["Diagramma che illustra l'architettura di sicurezza del collegamento Lambda."]
+
+
+
+[[lambda-link-versus-netapp-console-agent]]
+== Collegamento Lambda rispetto all'agente NetApp Console
+
+Il collegamento Lambda e l'agente della NetApp Console hanno scopi diversi e comportano implicazioni diverse in termini di sicurezza e operatività.
+
+[cols="1,2,2"]
+|===
+| Dimensione | Collegamento (basato su Lambda) | NetApp Console agent (basato su VM/Pod) 
+
+
+| Modello di runtime | Serverless (AWS Lambda), distribuito dal cliente | VM/container distribuiti dal cliente; esegue i pod di servizio della console NetApp 
+
+
+| Ambito primario | Operazioni REST del piano di controllo ONTAP (solo quando le API AWS non supportano l'operazione) | Orchestrazione e supporto per i servizi dati 
+
+
+| Supporto ai servizi dati | Non ospita servizi dati | Può ospitare servizi dati (esegue i pod di servizio NetApp console) 
+
+
+| overhead operativo | Nessuna macchina virtuale sempre attiva | Gestione del ciclo di vita e aggiornamenti delle macchine virtuali 
+|===
+
+
+[[related-information]]
+== Informazioni correlate
+
+Per la mappa completa della connettività tra i sistemi, consulta link:connectivity-trust-paths.html["Connettività e percorsi di fiducia per NetApp Workload Factory"].

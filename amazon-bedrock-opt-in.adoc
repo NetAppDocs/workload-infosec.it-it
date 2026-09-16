@@ -1,0 +1,65 @@
+---
+sidebar: sidebar 
+permalink: amazon-bedrock-opt-in.html 
+keywords: Amazon Bedrock, AI diagnostics, opt-in, inference profile, IAM permissions, Lambda link, SSH 
+summary: NetApp Workload Factory AI diagnostics utilizza Amazon Bedrock per analizzare gli eventi e la funzione è abilitata per impostazione predefinita. 
+---
+= Adesione facoltativa ad Amazon Bedrock per la diagnostica AI di NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory AI diagnostics utilizza Amazon Bedrock per analizzare gli eventi ed è abilitata per impostazione predefinita. Prima che Workload Factory possa richiamare il modello Bedrock selezionato e raccogliere i dati diagnostici, devi configurare le autorizzazioni IAM, un profilo di inferenza e un collegamento Lambda con funzionalità SSH. Se uno di questi componenti manca o la configurazione Bedrock viene rimossa, la diagnostica AI non sarà disponibile.
+
+La diagnostica AI è abilitata per impostazione predefinita.
+
+
+
+[[before-you-begin]]
+== Prima di iniziare
+
+* Assicurati che il tuo account includa un profilo di inferenza AWS Bedrock.
+* Hai un collegamento Lambda connesso con funzionalità SSH per la raccolta di dati diagnostici.
+
+
+
+
+[[steps]]
+== Passaggi
+
+. Concedi le autorizzazioni Bedrock nel tuo ruolo IAM:
++
+** `bedrock:InvokeModel`
+** `bedrock:InvokeModelWithResponseStream`
+** `bedrock:ListInferenceProfiles`
+** `bedrock:GetInferenceProfile`
+
+
+. Configura l'ARN del profilo di inferenza nelle impostazioni di Workload Factory.
+
+
+Se manca uno qualsiasi dei prerequisiti, il sistema segnala il componente specifico mancante e le funzionalità AI rimangono inattive.
+
+
+
+[[disable-ai-diagnostics]]
+== Disabilita la diagnostica dell'IA
+
+Per disattivare la diagnostica AI:
+
+* Rimuovi le autorizzazioni Bedrock dal tuo ruolo IAM, oppure
+* Elimina la configurazione Bedrock nelle impostazioni di Workload Factory.
+
+
+La diagnostica basata sull'AI diventa immediatamente non disponibile e non si verifica alcuna elaborazione residua dei dati.
+
+
+
+[[region-and-cross-region-inference-profiles]]
+== Profili di inferenza regionali e tra regioni
+
+L'inferenza Bedrock viene eseguita nella regione AWS specificata dal tuo profilo di inferenza. Se usi un profilo di inferenza interregionale, AWS potrebbe instradare la richiesta a qualsiasi regione nella configurazione del profilo, secondo il comportamento standard di AWS Bedrock. I dati non escono dall'infrastruttura AWS.

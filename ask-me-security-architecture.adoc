@@ -1,0 +1,69 @@
+---
+sidebar: sidebar 
+permalink: ask-me-security-architecture.html 
+keywords: Ask Me security architecture, RAG, retrieval-augmented generation, prompt injection, security classifier, domain scoping, tool-use governance, model data isolation, session-scoped context 
+summary: 'Ask Me è un assistente generativo basato sull"intelligenza artificiale integrato in NetApp Workload Factory. Fornisce supporto conversazionale in real-time per Amazon FSx for NetApp ONTAP e argomenti relativi a Workload Factory.' 
+---
+= Chiedimi l'architettura di sicurezza per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+Ask Me è un assistente generativo basato sull'intelligenza artificiale integrato in NetApp Workload Factory. Fornisce supporto conversazionale in real-time per Amazon FSx for NetApp ONTAP e argomenti di Workload Factory. Le risposte si basano su documentazione NetApp verificata e Ask Me non può accedere a Internet pubblico né utilizzare i dati dei clienti per addestrare il modello. Diversi livelli di sicurezza aiutano a bloccare le query dannose, limitare le risposte ai domini supportati e impedire che l'input dell'utente sovrascriva le istruzioni di sistema. Quando Ask Me utilizza strumenti, i limiti di autorizzazione, l'applicazione di query di sola lettura, una sandbox temporanea e la registrazione degli eventi aiutano a limitare e monitorare l'esecuzione.
+
+Puoi disattivare Ask Me in qualsiasi momento tramite le impostazioni di *Amministrazione* di Workload Factory, il che disabilita l'assistente per il tuo account utente. link:https://docs.netapp.com/us-en/workload-setup-admin/manage-genai-features.html["Scopri di più sulla gestione delle funzionalità di GenAI."^]
+
+
+
+[[rag-architecture-in-ask-me]]
+== Architettura RAG in Ask Me
+
+Ask Me utilizza la generazione aumentata tramite recupero (RAG).
+
+* Base di conoscenza curata: le risposte si basano su un corpus gestito di documentazione NetApp verificata e pubblicata.
+* Valutazione e filtraggio del recupero: solo i contenuti sufficientemente pertinenti sono inclusi nel contesto del modello.
+* Nessun accesso a Internet: il modello non può recuperare, visualizzare o estrarre contenuti esterni.
+* Attribuzione della fonte: le risposte includono riferimenti ai documenti di origine utilizzati.
+
+
+
+
+[[multi-layer-prompt-security]]
+== Sicurezza multi-livello dei prompt
+
+* Livello 1: il classificatore di sicurezza (LLM-as-a-judge) blocca le query dannose (iniezione di prompt, escalation dei privilegi, esfiltrazione di dati, ingegneria sociale, violazioni delle policy).
++
+Il sistema registra le query bloccate e il modello generativo non le vede mai.
+
+* Livello 2: L'irrobustimento del prompt di sistema impedisce che l'input dell'utente sovrascriva le istruzioni di sistema.
+* Livello 3: l'ambito del dominio limita le risposte agli argomenti FSx ONTAP e Workload Factory.
+* Livello 4: La governance dell'utilizzo degli strumenti convalida i parametri ed esegue le query in un ambiente protetto; il modello non può eseguire operazioni arbitrarie.
+
+
+
+
+[[model-data-isolation-and-privacy]]
+== Isolamento e privacy dei dati del modello
+
+* Nessun addestramento del modello sui dati dei clienti
+* Isolamento a livello di richiesta (nessuna perdita di dati tra tenant)
+* Contesto di conversazione a livello di sessione con cronologia delimitata
+* Nessuna memoria modello persistente
+* Infrastruttura di inferenza gestita
+
+
+
+
+[[tool-use-and-agentic-security]]
+== Uso degli strumenti e sicurezza agentica
+
+* Strumenti con ambito di autorizzazione (limiti di autorizzazione utente applicati)
+* Rigorosi timeout di esecuzione degli strumenti
+* Sandbox effimera, limitata alla sessione, per i dati recuperati
+* Applicazione delle query di sola lettura con allowlisting
+* Tracciabilità delle chiamate degli strumenti con pulizia dei parametri sensibili
+

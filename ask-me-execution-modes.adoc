@@ -1,0 +1,39 @@
+---
+sidebar: sidebar 
+permalink: ask-me-execution-modes.html 
+keywords: Ask Me execution modes, tool execution safeguards, ephemeral data sandbox, read-only query enforcement, tool call auditability, output controls, token limit, session scope 
+summary: Workload Factory offre diverse modalità di esecuzione per Ask Me, ognuna con caratteristiche di sicurezza e privacy differenti. 
+---
+= Chiedimi le modalità di esecuzione per NetApp Workload Factory
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+NetApp Workload Factory offre diverse modalità di esecuzione per Ask Me, ognuna con caratteristiche di sicurezza e privacy differenti. Quando Ask Me utilizza integrazioni con strumenti, ad esempio interrogando le risorse Workload Factory del cliente, l'esecuzione dello strumento è controllata tramite misure di sicurezza a più livelli. L'esecuzione abilitata dallo strumento opera entro i limiti delle autorizzazioni dell'utente autenticato e applica limiti alla durata e all'ambito di ciascuna operazione. I dati recuperati rimangono in una sandbox di sessione temporanea che blocca l'accesso esterno e viene eliminata al termine della sessione. Controlli indipendenti su prompt e codice impongono query di sola lettura, mentre i registri di audit registrano l'attività dello strumento con i valori sensibili rimossi.
+
+
+
+[[tool-execution-safeguards]]
+== Salvaguardie per l'esecuzione degli strumenti
+
+* Gli strumenti con ambito di autorizzazione operano entro le autorizzazioni dell'utente autenticato.
+* Il timeout di esecuzione dello strumento limita le operazioni di lunga durata.
+* La sandbox di dati effimeri memorizza i dati recuperati dagli strumenti nell'ambito della sessione, blocca l'accesso esterno, l'I/O dei file, le chiamate di rete e il caricamento delle estensioni a livello del motore e viene distrutta al termine della sessione.
+* L'applicazione della modalità di sola lettura alle query convalida le query generate tramite una rigorosa allowlist.
+* La sicurezza basata su prompt e quella basata su codice vengono applicate in modo indipendente.
+* La tracciabilità delle chiamate agli strumenti registra il nome dello strumento, i parametri, i timestamp e lo stato del risultato, con la rimozione dei valori sensibili.
+
+
+
+
+[[output-controls]]
+== controlli di output
+
+* applicazione del limite di token
+* Output deterministico per operazioni di classificazione/sicurezza-critical (temperatura 0)
+* Streaming con terminazione anticipata e pulizia
+

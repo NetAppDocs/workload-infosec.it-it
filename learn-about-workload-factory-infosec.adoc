@@ -1,0 +1,91 @@
+---
+sidebar: sidebar 
+permalink: learn-about-workload-factory-infosec.html 
+keywords: infosec, security, data handling, data retention, data collection, permissions, credentials, iam, assume role, least privilege, compliance, soc 2, govcloud, amazon bedrock, lambda, link, fsx for ontap, logging, audit, access control, onboarding, hardening 
+summary: NetApp Workload Factory prende sul serio la sicurezza delle informazioni e le pratiche di protezione dei dati, concentrandosi sulle procedure di gestione dei dati e sui requisiti di accesso, con indicazioni per configurazioni a privilegio minimo e potenziali misure di hardening. 
+---
+= Scopri la sicurezza delle informazioni per NetApp Workload Factory
+:hardbreaks:
+:allow-uri-read: 
+:nofooter: 
+:icons: font
+:linkattrs: 
+:imagesdir: ./media/
+
+
+[role="lead"]
+La sicurezza delle informazioni è un elemento fondamentale nella progettazione e nel funzionamento di NetApp Workload Factory. I team di sicurezza delle informazioni, piattaforme cloud e storage possono utilizzare questi dettagli per valutare e implementare Workload Factory in modo da soddisfare i requisiti di sicurezza aziendali.
+
+
+
+[[what-workload-factory-is]]
+== Che cos'è Workload Factory
+
+Workload Factory è una piattaforma SaaS per la gestione del ciclo di vita, progettata per aiutarti a ottimizzare e gestire i carichi di lavoro (ad esempio, storage, migrazioni VMware, progetti EDA e ambienti di database) utilizzando Amazon FSx for NetApp ONTAP. I tuoi carichi di lavoro vengono eseguiti in AWS.
+
+Workload Factory utilizza le API AWS per tutte le operazioni FSx for ONTAP disponibili nativamente tramite AWS e le API REST ONTAP per le operazioni di Workload Factory supportate dalla piattaforma ma non disponibili nativamente tramite le API AWS.
+
+
+
+[[core-security-principles-used-in-this-guide]]
+== Principi di sicurezza fondamentali utilizzati in questa guida
+
+Riservatezza:: Proteggi i dati da accessi non autorizzati tramite controlli di identità, minimo privilegio, crittografia e confini di rete.
+Integrità:: Proteggi sistemi e configurazioni da modifiche non autorizzate o indesiderate usando la definizione degli ambiti di autorizzazione, il controllo delle modifiche e la tracciabilità.
+Disponibilità:: Assicurati che gli utenti autorizzati possano accedere al servizio e ai workload tramite architetture AWS resilienti e monitoraggio operativo.
+
+
+
+
+[[types-of-information-covered-in-this-guide]]
+== Tipi di informazioni trattate in questa guida
+
+Le sezioni seguenti forniscono informazioni utili per aiutarti a valutare e integrare Workload Factory in modo da soddisfare i requisiti di sicurezza aziendali.
+
+. Modello di sicurezza e responsabilità
++
+** link:security-model.html["Modello di sicurezza in sintesi"]
+** link:shared-responsibility-boundaries.html["Confini di responsabilità condivisa"]
+
+
+. Architettura e connettività
++
+** link:connectivity-trust-paths.html["Connettività e percorsi di fiducia"]
+** link:ontap-execution-options.html["Opzioni di esecuzione ONTAP"]
+
+
+. Identità, credenziali e minimo privilegio
++
+** link:aws-account-integration.html["Integrazione account AWS"]
+** link:least-privilege-permissions.html["Livelli di autorizzazione a privilegio minimo"]
+
+
+. Governance dei dati, privacy e ciclo di vita
++
+** link:data-handling-residency.html["Gestione dei dati e residenza"]
+** link:account-deletion.html["Lista di controllo per l'eliminazione dell'account"]
+
+
+. Osservabilità e monitoraggio
++
+** link:metrics-telemetry.html["Metriche e telemetria"]
+
+
+. Controlli AI e componenti VPC
++
+** link:ai-controls-overview.html["Panoramica dei controlli dell'IA"]
+** link:lambda-link-overview.html["Panoramica del collegamento Lambda"]
+
+
+
+
+
+
+[[get-started-quickly]]
+== Inizia subito
+
+* Inizia con le autorizzazioni di visualizzazione, pianificazione e analisi (sola lettura) ed espandile solo se necessario.
+* Utilizza AWS CloudTrail per convalidare  `sts:AssumeRole` l'attività relativa al ruolo di integrazione.
+* Decidi in anticipo se hai bisogno di operazioni native di ONTAP che richiedono la distribuzione di un collegamento Lambda o di un agente NetApp Console.
+* Decidi in anticipo se l'IA generativa è consentita e se i vincoli di residenza richiedono profili di inferenza a regione singola.
+
